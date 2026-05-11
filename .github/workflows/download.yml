@@ -9,10 +9,20 @@ jobs:
     steps:
       - name: Download APK
         run: |
-          curl -L -o Hidezen_VPN.apk https://hidezen.com/download/Hidezen_VPN.apk
+          curl -L -A "Mozilla/5.0" \
+            -H "Accept: */*" \
+            -H "Connection: keep-alive" \
+            -o Hidezen_VPN.apk \
+            https://hidezen.com/download/Hidezen_VPN.apk
+
+      - name: Check file size
+        run: |
+          echo "Size of downloaded file:"
+          ls -lh Hidezen_VPN.apk
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: hidezen-apk
           path: Hidezen_VPN.apk
+
